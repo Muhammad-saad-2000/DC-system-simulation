@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # simulation parameters
-n = 10000
-step = 0.01
+n = 100000
+step = 0.05
 t = np.arange(0, n, step)
 
 
@@ -75,7 +75,7 @@ def error_rate(sigma_noise, filter_num):
 
 # plot E/No vs error rate (first filter)
 x=np.arange(-10, 20, 1)
-sigma_noise=2/(10**(x/10))
+sigma_noise=np.sqrt(2/(10**(x/10)))
 
 error_rate_1 = np.zeros(len(sigma_noise))
 for i in range(len(sigma_noise)):
@@ -90,12 +90,12 @@ for i in range(len(sigma_noise)):
     error_rate_3[i] = error_rate(sigma_noise[i], 3)
 
 
-plt.plot(x, error_rate_1, 'r')
-plt.plot(x, error_rate_2, 'g')
-plt.plot(x, error_rate_3, 'b')
+plt.semilogy(x, error_rate_1, 'r')
+plt.semilogy(x, error_rate_2, 'g')
+plt.semilogy(x, error_rate_3, 'b')
 
 plt.xlabel('E/No (dB)')
 plt.ylabel('BER')
 plt.title('E/No vs BER')
 plt.legend(['First filter', 'Second filter', 'Third filter'])
-plt.show() 
+plt.savefig('./out.png')
