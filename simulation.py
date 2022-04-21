@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # simulation parameters
-n = 1000
+n = 10000
 step = 0.01
 t = np.arange(0, n, step)
 
@@ -54,12 +54,13 @@ def error_rate(sigma_noise, filter_num):
 
     # select the filter
     filter = filter1 if filter_num == 1 else filter2 if filter_num == 2 else filter3
+    filter = np.concatenate((filter, np.zeros(int(1/step)-len(filter))))
 
     # apply the filter to the signal
     signal_noise_filter = np.convolve(signal_noise, filter)
 
     # sample the filtered signal
-    sampling_period = int(1/step)-1
+    sampling_period = int(1/step)
     samples = np.zeros(n)
     for i in range(len(samples)):
         samples[i] = signal_noise_filter[(i+1)*sampling_period]
@@ -70,10 +71,9 @@ def error_rate(sigma_noise, filter_num):
     # results
     return np.sum(bitstream != reconstructed_bitstram)/len(bitstream)
 
-# print(error_rate(5,1)) => sigma=5, first filter
 
 
-# plot sigma vs error rate (first filter)
+# plot E/No vs error rate (first filter)
 x=np.arange(-10, 20, 1)
 sigma_noise=2/(10**(x/10))
 
@@ -83,11 +83,11 @@ for i in range(len(sigma_noise)):
 
 error_rate_2 = np.zeros(len(sigma_noise))
 for i in range(len(sigma_noise)):
-    error_rate_1[i] = error_rate(sigma_noise[i], 2)
+    error_rate_2[i] = error_rate(sigma_noise[i], 2)
 
 error_rate_3 = np.zeros(len(sigma_noise))
 for i in range(len(sigma_noise)):
-    error_rate_1[i] = error_rate(sigma_noise[i], 3)
+    error_rate_3[i] = error_rate(sigma_noise[i], 3)
 
 
 plt.plot(x, error_rate_1, 'r')
@@ -96,5 +96,6 @@ plt.plot(x, error_rate_3, 'b')
 
 plt.xlabel('E/No (dB)')
 plt.ylabel('BER')
-plt.title('sigma vs error rate (first filter)')
-plt.show()
+plt.title('E/No vs BER')
+plt.legend(['First filter', 'Second filter', 'Third filter'])
+plt.show() 
