@@ -74,6 +74,7 @@ def error_rate(sigma_noise, filter_num):
 
 
 # plot E/No vs error rate (first filter)
+
 x=np.arange(-10, 20, 1)
 sigma_noise=np.sqrt(2/(10**(x/10)))
 
