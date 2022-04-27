@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from library import AWGN, BinarySource, binarycode_to_signal, receive_filter, Q, decision_maker, sampler
 # simulation parameters
-n = 1000000
+n = 100000
 step = 0.05
 t = np.arange(0, n, step)
 

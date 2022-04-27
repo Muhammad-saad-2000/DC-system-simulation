@@ -45,6 +45,8 @@ def receive_filter(signal_noise, filter_num, step):
    filter = filters[filter_num]
    filter = np.concatenate((filter, np.zeros(int(1/step)-len(filter))))
    signal_noise_filter=np.convolve(signal_noise, filter)
+   if (filter_num==0 or filter_num==2):
+      signal_noise_filter*step
    return signal_noise_filter
 
 
@@ -53,7 +55,7 @@ def receive_filter(signal_noise, filter_num, step):
 def sampler(sampling_period, signal_noise_filtered, n=10):
    samples = np.zeros(n)
    for i in range(len(samples)):
-      samples[i] = signal_noise_filtered[(i+1)*sampling_period]
+      samples[i] = signal_noise_filtered[sampling_period-1+i*sampling_period]
    return samples
 
 # %%
