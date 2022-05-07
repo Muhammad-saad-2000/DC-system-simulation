@@ -46,7 +46,7 @@ def compute_BER(σₙ, f):                  # σₙ is the noise's variance and 
 # plot BER VS. E/No for each filter
 E_Nₒ=np.arange(-10, 20, 1)                      # E_Nₒ range
 Nₒ = 1/(10**(E_Nₒ/10))
-σₙ = np.sqrt(Nₒ*2)                              # the corresponding range of sigma.
+σₙ = np.sqrt(Nₒ/2)                              # the corresponding range of sigma.
 
 
 
@@ -79,7 +79,7 @@ plt.xlabel('E/Nₒ (db)')
 plt.ylabel('BER (log-scale)')
 plt.title(' BER VS. E/Nₒ')
 plt.legend(['Matched Filter (1)', 'No Filter (2)', 'Linear Filter (3)', 'Theory 1', 'Theory 2', 'Theory 3'])
-plt.ylim([1/n*100, 1])
+plt.ylim([1/(100*n), 1])
 plt.savefig('./BER.png')
 
 
