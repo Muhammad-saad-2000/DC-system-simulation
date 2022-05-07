@@ -46,7 +46,7 @@ def receive_filter(signal_noise, filter_num, step):
    filter = np.concatenate((filter, np.zeros(int(1/step)-len(filter))))
    signal_noise_filter=np.convolve(signal_noise, filter)
    if (filter_num==0 or filter_num==2):
-      signal_noise_filter*step
+      signal_noise_filter=signal_noise_filter*step
    return signal_noise_filter
 
 

@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from library import AWGN, BinarySource, binarycode_to_signal, receive_filter, Q, decision_maker, sampler
 # simulation parameters
-n = 100000                                                      # bitstream length
+n = 1000000                                                      # bitstream length
 step = 0.05                                                     # 20 Samples per pulse of duration 1
 T=1                                                             # pulse period
 
@@ -79,7 +79,7 @@ plt.xlabel('E/Nₒ (db)')
 plt.ylabel('BER (log-scale)')
 plt.title(' BER VS. E/Nₒ')
 plt.legend(['Matched Filter (1)', 'No Filter (2)', 'Linear Filter (3)', 'Theory 1', 'Theory 2', 'Theory 3'])
-plt.ylim([1/(100*n), 1])
+plt.ylim([10/(n), 1])
 plt.savefig('./BER.png')
 
 
